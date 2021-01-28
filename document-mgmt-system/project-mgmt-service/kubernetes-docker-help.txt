@@ -1,0 +1,60 @@
+**Docker MySQL**
+--To download the mysql image from docker hub repository
+docker pull mysql:8.0.22
+--One time activity:To run the mysql with the details:root_password=bjjd,sql_user=project-user,sql_password=pass379,sql_database=project-db
+docker run --detach --env MYSQL_ROOT_PASSWORD=bjjd --env MYSQL_USER=project-user --env MYSQL_PASSWORD=pass379 --env MYSQL_DATABASE=project-db --name mysql --publish 3306:3306 mysql:8.0.22
+
+--Every time to run mysql
+docker start mysql
+
+
+----------------------------------------------------------
+--To build the project
+mvn clean install -DskipTestCase=true
+
+--To build the docker image
+docker image build -t project-mgmt-service:0.0.1-RELEASE .
+
+--To remove the docker image by repository name and tag
+docker image rm project-mgmt-service:0.0.1-RELEASE -f
+
+--To remove the dangling images: dangling=true filter finds unused images
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+
+--To login into the docker hub
+docker login docker.io
+
+--To tag and push the docker image into docker hub repository
+docker tag project-mgmt-service:0.0.1-RELEASE rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
+docker push rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
+
+--To run the docker image
+docker run -p 5379:5379 --link=mysql --env RDS_HOSTNAME=mysql project-mgmt-service:0.0.1-RELEASE
+
+
+
+--To start the minikube
+minikube start --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --cpus 1
+
+--To create the deployment
+kubectl create deployment project-mgmt-service --image=rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
+
+--To expose the deployment
+kubectl expose deployment project-mgmt-service --type=LoadBalancer --port=5379
+
+--To get the status of deployment
+kubectl get pods -o wide
+
+--If the application is not deployed then we can check the issue
+kubectl get events --sort-by=.metadata.creationTimestamp
+
+--If you want to see the log of the application deployment failure, then look into the containerized application logs
+kubectl logs <pods-id>
+kubectl logs project-mgmt-service-866dbc5dc4-tj5tm
+
+--To get the deployment and service yaml into the project-mgmt-service project
+kubectl get deployment project-mgmt-service -o yaml > deployment.yaml
+kubectl get service project-mgmt-service -o yaml > service.yaml
+
+--To stop the minikube
+minikube stop

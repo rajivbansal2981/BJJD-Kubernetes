@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: darshan-mgmt-service
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: rkbansal
+Built-By: rajiv
 Implementation-Vendor-Id: com.jmk
-Build-Jdk: 1.8.0_231
+Build-Jdk: 1.8.0_275
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/darshan-mgmt-service
 Created-By: Maven Integration for Eclipse

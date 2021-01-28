@@ -11,6 +11,7 @@
 	<groupId>com.jmk</groupId>
 	<artifactId>cache-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>cache-service</name>
 	<description>cache-service</description>
 	<properties>
@@ -75,12 +76,12 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<build>
+	<!-- <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 </project>

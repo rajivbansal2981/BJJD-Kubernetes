@@ -11,6 +11,7 @@
 	<groupId>com.jmk</groupId>
 	<artifactId>common-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>common-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -62,12 +63,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 </project>

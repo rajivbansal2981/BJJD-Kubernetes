@@ -12,3 +12,8 @@ https://medium.com/omarelgabrys-blog/microservices-with-spring-boot-intro-to-mic
 https://dzone.com/articles/securing-rest-services-with-oauth2-in-springboot-1
 https://itnext.io/microservices-with-spring-boot-and-spring-cloud-16d2c056ba12
 https://github.com/OmarElGabry/microservices-spring-boot
+
+Kubernetes and microservices link
+https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
+
+https://www.magalix.com/blog/kubernetes-and-database

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.jmk.project.model.Project;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class ProjectMgmtServiceTest {
 	
 	private Project project;
@@ -28,7 +30,7 @@ public class ProjectMgmtServiceTest {
 	public void setUp() {
 		project=new Project();
 		project.setName("Construction");
-		project.setCode("DNC");
+		project.setCode("DCP");
 		project.setManager("Rajiv");
 		project.setStatus(Status.A);
 		project.setDescription("ProjectDescription");

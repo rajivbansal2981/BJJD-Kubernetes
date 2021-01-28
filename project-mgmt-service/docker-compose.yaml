@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  project-mgmt-service:
+    image: rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
+    #build:
+      #context: .
+      #dockerfile: Dockerfile
+    ports:
+      - "5379:5379"
+    restart: always
+    depends_on: # Start the depends_on first
+      - mysql 
+    environment:
+      RDS_HOSTNAME: mysql
+      RDS_PORT: 3306
+      RDS_DB_NAME: project-db
+      RDS_USERNAME: project-user
+      RDS_PASSWORD: pass379
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: bjjd
+      MYSQL_USER: project-user
+      MYSQL_PASSWORD: pass379
+      MYSQL_DATABASE: project-db
+    volumes:
+      - mysql-database-data-volume:/var/lib/mysql
+# Volumes
+volumes:
+  mysql-database-data-volume:
