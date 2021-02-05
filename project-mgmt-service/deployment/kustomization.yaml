@@ -1,0 +1,4 @@
+resources:
+  - mysql-database-data-volume-persistentvolumeclaim.yaml
+  - mysql-deployment.yaml
+  - project-mgmt-service-deployment.yaml

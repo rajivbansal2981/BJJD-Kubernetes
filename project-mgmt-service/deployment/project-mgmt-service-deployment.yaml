@@ -24,15 +24,15 @@ spec:
       containers:
       - name: project-mgmt-service
         image: rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
           - name: http
             containerPort: 5379 # The port that the container exposes
         env:
         - name: DB_HOSTNAME
-          value: project-mgmt-service-mysql #MySQL db host name
+          value: project-mgmt-service-mysql #MySQL db host name i.e. name of the mysql service name which is DNS
         - name: DB_NAME
-          value: project-db
+          value: project_db
         - name: DB_USERNAME
           value: project
         - name: DB_PASSWORD

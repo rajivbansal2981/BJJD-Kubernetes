@@ -2,6 +2,7 @@ package com.jmk.project.api;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jmk.cache.UserCache;
 import com.jmk.enums.Status;
 import com.jmk.project.model.Project;
 import com.jmk.project.service.ProjectMgmtService;
@@ -36,7 +38,7 @@ public class ProjectApiController implements ProjectApi {
 	private final HttpServletRequest request;
 	
 	//@Autowired
-	//private UserCache userCache;
+	private UserCache userCache;
 
 	@Autowired
 	private ProjectMgmtService projectMgmtService;
@@ -54,7 +56,7 @@ public class ProjectApiController implements ProjectApi {
 		if (accept != null && accept.contains("application/json") || accept.contains("application/xml")
 				|| accept.contains("*")) {
 			if(StringUtils.hasText(username)) {
-		//		enrichCommonDetails(project,userCache.getUserByUsername(username));
+				enrichCommonDetails(project,userCache.getUserByUsername(username));
 			}
 			project = projectMgmtService.saveProject(project);
 			return new ResponseEntity<Project>(project, HttpStatus.OK);
@@ -71,9 +73,9 @@ public class ProjectApiController implements ProjectApi {
 		String username=request.getHeader("username");
 		 if (accept != null && accept.contains("application/json") || accept.contains("application/xml")) {
 			 if (StringUtils.hasText(username)) {
-		//			final User user = userCache.getUserByUsername(username);
-			//		projects = projects.stream().map(project -> enrichCommonDetails(project, user))
-				//			.collect(Collectors.toList());
+					final User user = userCache.getUserByUsername(username);
+					projects = projects.stream().map(project -> enrichCommonDetails(project, user))
+							.collect(Collectors.toList());
 				}
 			 projects=projectMgmtService.saveProjects(projects);
         	 if(projects!=null) {
@@ -131,7 +133,7 @@ public class ProjectApiController implements ProjectApi {
 		if (accept != null && accept.contains("application/json") || accept.contains("application/xml")
 				|| accept.contains("*")) {
 			if(StringUtils.hasText(username)) {
-				//enrichCommonDetails(project,userCache.getUserByUsername(username));
+				enrichCommonDetails(project,userCache.getUserByUsername(username));
 			}
 			project = projectMgmtService.saveProject(project);
 			return new ResponseEntity<Project>(project, HttpStatus.OK);

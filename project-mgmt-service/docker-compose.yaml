@@ -11,11 +11,11 @@ services:
     depends_on: # Start the depends_on first
       - mysql 
     environment:
-      RDS_HOSTNAME: mysql
-      RDS_PORT: 3306
-      RDS_DB_NAME: project-db
-      RDS_USERNAME: project-user
-      RDS_PASSWORD: pass379
+      DB_HOSTNAME: mysql
+      DB_PORT: 3306
+      DB_NAME: project_db
+      DB_USERNAME: project
+      DB_PASSWORD: project
   mysql:
     image: mysql:5.7
     ports:
@@ -23,9 +23,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: bjjd
-      MYSQL_USER: project-user
-      MYSQL_PASSWORD: pass379
-      MYSQL_DATABASE: project-db
+      MYSQL_DATABASE: project_db
+      MYSQL_USER: project
+      MYSQL_PASSWORD: project
     volumes:
       - mysql-database-data-volume:/var/lib/mysql
 # Volumes
