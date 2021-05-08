@@ -22,13 +22,25 @@ spec:
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: bjjd
+          valueFrom:
+             secretKeyRef:
+                name: project-mgmt-service-secrets
+                key: database.root.password
         - name: MYSQL_DATABASE
-          value: project_db
+          valueFrom:
+             configMapKeyRef:
+              name: project-mgmt-service-configmap
+              key: database.hostname
         - name: MYSQL_USER
-          value: project
+          valueFrom: 
+             configMapKeyRef:
+                 name: project-mgmt-service-configmap
+                 key: database.username
         - name: MYSQL_PASSWORD
-          value: project
+          valueFrom:
+             secretKeyRef:
+                name: project-mgmt-service-secrets
+                key: database.password
         args:
           - "--ignore-db-dir=lost+found" #CHANGE
         ports:

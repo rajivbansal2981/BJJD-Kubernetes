@@ -4,7 +4,7 @@ metadata:
   name: project-mgmt-service
   labels:
     app: project-mgmt-service
-  namespace: default
+  #namespace: default
 spec:
   replicas: 1
   minReadySeconds: 45
@@ -24,21 +24,36 @@ spec:
       containers:
       - name: project-mgmt-service
         image: rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent #Always
         ports:
           - name: http
             containerPort: 5379 # The port that the container exposes
         env:
         - name: DB_HOSTNAME
-          value: project-mgmt-service-mysql #MySQL db host name i.e. name of the mysql service name which is DNS
+          valueFrom:
+             configMapKeyRef:
+              name: project-mgmt-service-configmap
+              key: database.hostname #MySQL db host name i.e. name of the mysql service name which is DNS
         - name: DB_NAME
-          value: project_db
+          valueFrom: 
+             configMapKeyRef:
+                 name: project-mgmt-service-configmap
+                 key: database.name
         - name: DB_USERNAME
-          value: project
+          valueFrom: 
+             configMapKeyRef:
+                 name: project-mgmt-service-configmap
+                 key: database.username
         - name: DB_PASSWORD
-          value: project
+          valueFrom:
+             secretKeyRef:
+                name: project-mgmt-service-secrets
+                key: database.password
         - name: DB_PORT
-          value: "3306"
+          valueFrom: 
+             configMapKeyRef:
+                 name: project-mgmt-service-configmap
+                 key: database.port
       restartPolicy: Always
       terminationGracePeriodSeconds: 60
 ---

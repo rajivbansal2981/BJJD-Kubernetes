@@ -1,0 +1,60 @@
+1. Build the project
+	mvn clean install -DskipTestCase=true
+2. To list out all the docker images
+	docker images
+3. To remove the docker image
+	docker image rm rajivbansal2981/project-mgmt-service:0.0.1-RELEASE -f
+4. To remove all the non-tagged images
+	docker rmi $(docker images --filter "dangling=true" -q --no-trunc) -f
+5.To build the docker image
+	docker image build -t project-mgmt-service:0.0.1-RELEASE .
+
+6.To tag and push the docker image into docker hub repository[Optional as it is required when tag and push the image in docker repository so that anybody can pull and use this docker image in kubernetes]
+        ◦ To tag the docker image 	
+	docker tag project-mgmt-service:0.0.1-RELEASE rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
+        ◦ To login into the docker hub and push the docker image
+	docker login docker.io
+	docker push rajivbansal2981/project-mgmt-service:0.0.1-RELEASE
+7. Start the minikube
+	minikube start --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --cpus 1
+8.1 Delete the pods and deployment, service etc by lable name of the application
+	kubectl delete all -l app=project-mgmt-service
+8.2 Delete the pvc claim for mysql
+	kubectl delete pvc mysql-pv-claim
+8.3 Delete the secrets
+	kubectl get secrets
+	kubectl get secrets <secret_name> 
+	kubectl delete secrets project-mgmt-service-secrets-bdtk6dh96g
+8.4. Delete the configmaps
+	kubectl get configmaps
+	kubectl delete configmaps project-mgmt-service-configmap-8g7f57f86d
+9.Deploy and run the docker image in kubernetes by applying following commands in the order or follow the direct step 10 to apply the following commands in one go:
+	kubectl apply -f mysql-database-data-volume-persistentvolumeclaim.yaml
+	kubectl apply -f mysql-deployment.yaml
+	kubectl apply -f project-mgmt-service-deployment.yaml
+10. Deploy and run the docker image in kubernetes in one go using kustomization.yaml file	
+	kubectl apply -k ./
+11. To stop the minikube
+	minikube stop
+
+
+Important Kubernetes commands
+kubectl get events --sort-by=.metadata.creationTimestamp
+kubectl logs <pods-id>
+kubectl delete all
+kubectl get deployment
+kubectl get services
+kubectl get pods
+kubectl apply -f mysql-database-data-volume-persistentvolumeclaim.yaml
+kubectl apply -f mysql-deployment.yaml
+kubectl apply -f project-mgmt-service-deployment.yaml
+kubectl describe pod project-mgmt-service-5c88bd4b87-cpgzc
+kubectl get secrets
+kubectl get secrets <secret_name> 
+kubectl delete secrets project-mgmt-service-secrets-bdtk6dh96g
+kubectl get configmaps
+kubectl delete configmaps project-mgmt-service-configmap-8g7f57f86d
+
+
+
+
