@@ -33,7 +33,7 @@ spec:
           valueFrom:
              configMapKeyRef:
               name: project-mgmt-service-configmap
-              key: database.hostname #MySQL db host name i.e. name of the mysql service name which is DNS
+              key: database.hostname #MySQL db host name(mysql service name which is DNS defined in mysql-deployment.yaml)
         - name: DB_NAME
           valueFrom: 
              configMapKeyRef:
