@@ -18,10 +18,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   labels:
-    app: project-mgmt-service
+    app: project-mgmt-service #Request of the storage for project-mgmt-service that can be fulfilled by PV.
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: 100Mi #Request for the amount of storage
