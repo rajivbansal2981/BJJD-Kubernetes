@@ -10,7 +10,7 @@ secretGenerator:
   literals:
   - database.root.password=bjjd #My sql root password
   - database.password=project
-resources:
+resources: #Adding the following yaml resources
   - mysql-database-data-volume-persistentvolumeclaim.yaml
   - mysql-deployment.yaml
   - project-mgmt-service-deployment.yaml
