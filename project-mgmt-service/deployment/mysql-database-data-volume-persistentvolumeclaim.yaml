@@ -9,9 +9,9 @@ spec:
   capacity:
     storage: 1000Mi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce #Persistent volume claims 1000Mi from storage with ReadWriteOne access mode.
   hostPath:
-    path: "/mnt/data"
+    path: "/mnt/data" #Host path is /mnt/data where all our data will reside.
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
