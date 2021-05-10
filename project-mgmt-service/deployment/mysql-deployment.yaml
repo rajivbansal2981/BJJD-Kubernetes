@@ -52,12 +52,12 @@ spec:
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: mysql-pv-claim #Attach a persistent volume mysql-pv-claim.
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: project-mgmt-service-mysql # DNS name
+  name: project-mgmt-service-mysql # DNS name which will be used by microservices to connect with MySQL
   labels:
     app: project-mgmt-service
 spec:
